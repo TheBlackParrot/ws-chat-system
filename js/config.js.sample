@@ -1,0 +1,7 @@
+if(window.location.protocol == "https:") {
+	var ws_address = "wss://192.168.1.150:9092";
+	var web_root = "https://192.168.1.150/chat_test/";
+} else {
+	var ws_address = "ws://192.168.1.150:9092";
+	var web_root = "http://192.168.1.150/chat_test/";
+}

@@ -1,0 +1,236 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-size: 12pt;
+	line-height: 16pt;
+	max-height: 100vh;
+	overflow: hidden;
+}
+strong {
+	font-weight: 700;
+}
+em {
+	font-style: italic;
+}
+.content {
+	padding: 8px;
+	width: calc(100% - 16px);
+	height: calc(100% - 16px);
+}
+
+.wrapper {
+	width: 100vw;
+	min-width: 500px;
+	min-height: 200px;
+	height: 100vh;
+	background-color: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.chat_area {
+	width: 80vw;
+	height: calc(100vh - 32px);
+	overflow-y: auto;
+	max-height: calc(100vh - 32px);
+	background-color: #fff;
+	display: inline-block;
+	float: left;
+}
+.user_list {
+	overflow-y: auto;
+	width: 20vw;
+	height: calc(100vh - 32px);
+	background-color: #ddd;
+	display: inline-block;
+	float: left;
+}
+
+
+.user_list .user_line {
+	display: block;
+	padding: 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+}
+.rank_owner {
+	border-right: 12px solid #fff;
+	width: calc(100% - 28px);
+}
+.rank_mod {
+	border-right: 6px solid rgba(255,255,255,0.66);
+	width: calc(100% - 22px);
+}
+.rank_user {
+	width: calc(100% - 16px);
+}
+
+.input_wrapper {
+	width: 100vw;
+	height: 32px;
+	background-color: #333;
+	color: #fff;
+	display: inline-block;
+}
+.input_field {
+	width: calc(100% - 96px - 64px);
+	height: 32px;
+	background-color: #333;
+	color: #fff;
+	border: 0;
+	outline: 0 !important;
+	font-family: "Roboto", sans-serif;
+	font-size: 12pt;
+	line-height: 32px;
+	padding: 8px;
+}
+#submitMsgButton {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.button {
+	width: 96px;
+	background-color: #2196F3;
+	color: #fff;
+	line-height: 32px;
+	display: inline-block;
+	float: right;
+	text-align: center;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+.button:hover {
+	background-color: #64B5F6;
+}
+.button:active {
+	background-color: #1976D2;
+}
+.button, .button:hover, .button:active {
+	transition: .1s;
+}
+.char_limit {
+	width: 64px;
+	background-color: #333;
+	color: #999;
+	line-height: 32px;
+	display: inline-block;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
+.chat_area .user::before {
+	content: "<";
+}
+.chat_area .user::after {
+	content: ">";
+}
+.chat_area .mecmd::before {
+	content: "" !important;
+}
+.chat_area .mecmd::after {
+	content: "" !important;
+}
+.chat_area .timestamp::before {
+	content: "[";
+}
+.chat_area .timestamp::after {
+	content: "]";
+}
+.message .timestamp {
+	line-height: 21px;
+	font-size: 9pt;
+	opacity: 0.5;
+	margin-right: 4px;
+}
+.message .user {
+	font-weight: 700;
+	margin-right: 4px;
+	display: inline-block;
+}
+.message .text {
+	word-wrap: break-word;
+}
+.message .text img {
+	max-width: 50%;
+	max-height: 400px;
+	width: auto;
+	height: auto;
+	display: block;
+	-webkit-filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.75));
+	filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.75));
+}
+.message .text .emoji {
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	vertical-align: middle;
+	-webkit-filter: none;
+	filter: none;
+}
+.message {
+	display: block;
+	width: calc(100% - 16px);
+	min-height: 21px;
+	padding: 8px;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.message:nth-child(odd):not(.msg_pm) {
+	background-color: #f9f9f9;
+}
+.message:nth-child(even):not(.msg_pm) {
+	background-color: #fff;
+}
+.msg_sys .text, .msg_sys .user {
+	font-style: italic;
+	opacity: 0.5;
+	font-size: 9pt;
+	line-height: 21px;
+}
+.msg_pm:nth-child(odd) {
+	background-color: #ccc;
+}
+.msg_pm:nth-child(even) {
+	background-color: #c6c6c6;
+}
+iframe {
+	display: block;
+}
+.vine-embed {
+	max-width: 400px;
+	max-height: 400px;
+	width: 100%;
+}
+audio {
+	width: 100%;
+}
+video, .youtube-wrapper {
+	width: 100%;
+	max-width: 700px;
+	display: block;
+}
+.message .text .twitch_emote {
+	max-height: 23px;
+	display: inline;
+	filter: none;
+	-webkit-filter: none;
+	vertical-align: middle;
+}
+.more_wrapper {
+	position: fixed;
+	bottom: 32px;
+	background-color: rgba(0,0,0,0.9);
+	color: #fff;
+	display: none;
+	height: 32px;
+	line-height: 32px;
+	border-top: 1px solid #000;
+	text-align: center;
+	z-index: 1;
+}

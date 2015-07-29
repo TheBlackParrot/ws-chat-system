@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-0": {
+			"chat_controller": "src"
+		}
+	},
+	"require": {
+		"cboden/ratchet": "0.3.*"
+	}
+}
