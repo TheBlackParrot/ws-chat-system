@@ -841,7 +841,7 @@ function handleCommandData($data, $conn) {
 				"/listbans" => "List banned users",
 				"/register *[password] [confirm]*" => "Register your username",
 				"/persist" => "Make a room persistent",
-				"/unpersist" => "Unpersist a persistent room"
+				"/unpersist" => "Unpersist a persistent room",
 				"/mod" => "Make a user a moderator",
 				"/demod" => "Demote a moderator back to a standard user",
 				"/roll *[min=1] [max=6]*" => "Get a random number",
