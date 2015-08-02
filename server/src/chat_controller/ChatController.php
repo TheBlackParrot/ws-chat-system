@@ -452,6 +452,7 @@ function handleControllerData($msg, $conn) {
 					$user[$arr['uuid']]['color'] = explode(",", $colors[array_rand($colors)]);
 					$user[$arr['uuid']]['conn'] = $conn;
 					$user[$arr['uuid']]['ignored'] = [];
+					$user[$arr['uuid']]['registered'] = $user_exists;
 
 					$user[$arr['uuid']]['verification'] = $arr['verification'] = generateKey(40, 60);
 
@@ -997,6 +998,8 @@ function handleCommandData($data, $conn) {
 			)';
 			$database['users']->exec($query);
 
+			$user[$data[2]]['registered'] = 1;
+
 			$arr['is_sys'] = 1;
 			$arr['msg'] = "Your account has been successfully registered.";
 
@@ -1035,11 +1038,19 @@ function handleCommandData($data, $conn) {
 				return;
 			}
 
-			$query = 'INSERT INTO rooms (NAME, CREATOR, REGISTERED, NSFW) VALUES (
+			$mod_arr = [];
+			foreach ($room[$data[1]]['users'] as $uuid => $user_data) {
+				if($user_data['rank'] == "mod" && $user[$uuid]['registered']) {
+					$mod_arr[] = $user[$uuid]['name'];
+				}
+			}
+
+			$query = 'INSERT INTO rooms (NAME, CREATOR, REGISTERED, NSFW, MODS) VALUES (
 				"' . strtolower($data[1]) . '",
 				"' . $user[$data[2]]['name'] . '",
 				' . time() . ',
-				' . $room[$data[1]]['NSFW'] . '
+				' . $room[$data[1]]['NSFW'] . ',
+				"' . implode(";", $mod_arr) . '"
 			)';
 			$database['rooms']->exec($query);
 
@@ -1047,6 +1058,37 @@ function handleCommandData($data, $conn) {
 			$arr['msg'] = "Your room is now persistent.";
 
 			logController("command/persist", "User " . $user[$data[2]]['name'] . " has made room {$data[1]} persistent.");
+			$conn->send(formatResponse($arr, "chatMessage"));
+			break;
+
+		case "unpersist":
+			global $database;
+
+			if(!canUseCommand($data[1], $data[2], "owner")) {
+				$arr['is_sys'] = 1;
+				$arr['msg'] = "You do not have sufficent privileges to use this command.";
+
+				$conn->send(formatResponse($arr, "chatMessage"));
+				return;
+			}
+
+			$room_exists = 0;
+			$results = $database['rooms']->query('SELECT * FROM rooms WHERE NAME="' . $data[1] . '"');
+			while($row = $results->fetchArray()) {
+				$room_exists = 1;
+			}
+			if(!$room_exists) {
+				clientError($conn, "This room is not persistent.");
+				return;
+			}
+
+			$query = 'DELETE FROM rooms WHERE NAME="' . $data[1] . '"';
+			$database['rooms']->exec($query);
+
+			$arr['is_sys'] = 1;
+			$arr['msg'] = "Your room is no longer persistent.";
+
+			logController("command/unpersist", "User " . $user[$data[2]]['name'] . " has made room {$data[1]} unpersistent.");
 			$conn->send(formatResponse($arr, "chatMessage"));
 			break;
 
